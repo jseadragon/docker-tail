@@ -7,8 +7,7 @@
 VERSION="0.1.0"
 
 # set of colors for output. We rotate through them and re-use.
-COLORS=("\x1b[31m" "\x1b[32m" "\x1b[33m" "\x1b[34m" "\x1b[35m")
-RESET_COLOR="\x1b[0m"
+RESET_COLOR="$(tput sgr0)"
 
 # helpers
 usage() {
