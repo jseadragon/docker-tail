@@ -39,6 +39,15 @@ if [ "${#containers[@]}" == 0 ]; then
   exit 1
 fi
 
+COLORS=()
+cnt=1
+for i in "${containers[@]}"; do
+
+  COLOR_VAL="$(tput setaf $cnt$cnt$cnt)"
+  COLORS+=("$COLOR_VAL")
+  cnt=$((cnt + 1))
+done
+
 # we need to trap signals and shutdown the forked `docker logs -f` procs
 shutdown(){
   echo "Stopping"
@@ -49,9 +58,7 @@ trap shutdown SIGINT SIGTERM
 
 cnt=0
 for i in "${containers[@]}"; do
-  # pick a color from the $COLORS array
-  color_idx=$(( cnt % ${#COLORS[@]} ))
-  color="${COLORS[$color_idx]}"
+  color=${COLORS[$cnt]}
 
   # created a fixed length prefix containing the container name for each line of log output
   line_prefix=$(printf "|%-13s | " "$i")
