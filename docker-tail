@@ -59,7 +59,7 @@ for i in "${containers[@]}"; do
 
   # fork and spawn `docker logs -f`, feeding output through sed to add our prefix and colors
   (docker logs --tail=10 --timestamps -f "$i" 2>&1 \
-    | sed "s/^/$color$line_prefix/; s/$/$RESET_COLOR/") &
+    | sed "s/^/$color$line_prefix$RESET_COLOR/; ") &
 
   cnt=$((cnt + 1))
 done
